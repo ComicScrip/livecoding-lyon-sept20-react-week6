@@ -1,11 +1,12 @@
 import React from 'react';
 import StudentsPage from './StudentsPage';
 
-function Main() {
+const Main = () => {
   return (
     <main>
       <StudentsPage />
     </main>
   );
-}
+};
+
 export default Main;
