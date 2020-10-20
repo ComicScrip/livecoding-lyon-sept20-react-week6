@@ -1,19 +1,45 @@
 import React from 'react';
-import students from '../data/students';
+import students, {
+  getAvatarUrl,
+  getFullName,
+  getGitHubAccountUrl,
+  persistAll,
+} from '../data/students';
 import { sortBy } from 'lodash';
+import Switch from '@material-ui/core/Switch';
 
 const StudentsTableRow = ({
   firstName,
   lastName,
-  githubUserName,
+  gitHubAccountUrl,
   firstTrainerMeetingDone,
+  avatarUrl,
+  fullName,
+  handleTrainerMeetingDoneToogle = () => {},
 }) => {
-  // const studentDetailsPageLink = '/students/' + githubUserName;
   return (
-    <tr key={githubUserName}>
-      <td>{firstName}</td>
+    <tr>
+      <td>
+        <a href={gitHubAccountUrl} target='_blank' rel='noopener noreferrer'>
+          <img
+            className='avatar'
+            src={avatarUrl}
+            alt={fullName + "'s Github avatar"}
+          />
+        </a>
+      </td>
+      <td>
+        <a href={gitHubAccountUrl}>{firstName}</a>
+      </td>
       <td>{lastName.toUpperCase()}</td>
-      <td>{firstTrainerMeetingDone ? 'oui' : 'non'}</td>
+      <td>
+        <Switch
+          checked={firstTrainerMeetingDone}
+          onChange={handleTrainerMeetingDoneToogle}
+          color='primary'
+          inputProps={{ 'aria-label': 'primary checkbox' }}
+        />
+      </td>
     </tr>
   );
 };
@@ -57,13 +83,33 @@ class StudentsTable extends React.Component {
     }
   }
 
+  handleTrainerMeetingDoneToogle = (githubUserName) => {
+    this.setState(
+      ({ sortedStudents }) => ({
+        sortedStudents: sortedStudents.map((s) =>
+          s.githubUserName === githubUserName
+            ? {
+                ...s,
+                firstTrainerMeetingDone: !s.firstTrainerMeetingDone,
+              }
+            : s
+        ),
+      }),
+      () => {
+        persistAll(this.state.sortedStudents);
+      }
+    );
+  };
+
   render() {
     const { sortedStudents, activeSort } = this.state;
+    const { handleTrainerMeetingDoneToogle } = this;
 
     return (
       <table>
         <thead>
           <tr>
+            <td>Avatar</td>
             <td>
               Prénom
               <span className='col-sort-buttons-container'>
@@ -101,7 +147,32 @@ class StudentsTable extends React.Component {
             <td>Entretien tech passé</td>
           </tr>
         </thead>
-        <tbody>{sortedStudents.map(StudentsTableRow)}</tbody>
+        <tbody>
+          {sortedStudents.map((student) => {
+            const {
+              githubUserName,
+              firstName,
+              lastName,
+              firstTrainerMeetingDone,
+            } = student;
+            return (
+              <StudentsTableRow
+                key={githubUserName}
+                handleTrainerMeetingDoneToogle={() =>
+                  handleTrainerMeetingDoneToogle(githubUserName)
+                }
+                {...{
+                  firstTrainerMeetingDone,
+                  firstName,
+                  lastName,
+                  gitHubAccountUrl: getGitHubAccountUrl(student),
+                  avatarUrl: getAvatarUrl(student),
+                  fullName: getFullName(student),
+                }}
+              />
+            );
+          })}
+        </tbody>
       </table>
     );
   }

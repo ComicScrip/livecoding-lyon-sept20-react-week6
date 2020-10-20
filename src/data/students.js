@@ -145,30 +145,24 @@ export const studentsRawData = [
   },
 ];
 
-export class Student {
-  constructor(props) {
-    for (const key in props) {
-      this[key] = props[key];
-    }
-  }
+export const getFullName = (student) => {
+  return `${student.firstName} ${student.lastName}`;
+};
 
-  get avatarUrl() {
-    return `https://github.com/${this.githubUserName}.png`;
-  }
+export const getGitHubAccountUrl = (stduent) => {
+  return `https://github.com/${stduent.githubUserName}`;
+};
 
-  get fullName() {
-    return `${this.firstName} ${this.lastName}`;
-  }
+export const getAvatarUrl = (student) => {
+  return `https://github.com/${student.githubUserName}.png`;
+};
 
-  static persistAll() {
-    localStorage.setItem('students', JSON.stringify(students));
-  }
-}
+export const persistAll = (students) => {
+  localStorage.setItem('students', JSON.stringify(students));
+};
 
 const studentsFromStorage = JSON.parse(localStorage.getItem('students'));
-const students =
-  studentsFromStorage ||
-  studentsRawData.map((rawStudentData) => new Student(rawStudentData));
+console.log(studentsFromStorage);
+const students = studentsFromStorage || studentsRawData;
 
-window.students = students;
 export default students;

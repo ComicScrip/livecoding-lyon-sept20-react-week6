@@ -1,4 +1,6 @@
-html, body, #root {
+html,
+body,
+#root {
   height: 100%;
 }
 
@@ -91,7 +93,8 @@ table * {
 table thead {
   color: #cbcbcb;
 }
-table td, table th {
+table td,
+table th {
   padding-left: 15px;
 }
 table thead tr {
@@ -104,21 +107,24 @@ table tbody tr {
 table tbody tr:last-child {
   border: 0;
 }
-table td, table th {
+table td,
+table th {
   text-align: left;
 }
-table td.l, table th.l {
+table td.l,
+table th.l {
   text-align: right;
 }
-table td.c, table th.c {
+table td.c,
+table th.c {
   text-align: center;
 }
-table td.r, table th.r {
+table td.r,
+table th.r {
   text-align: center;
 }
 
-
-.table100-head th{
+.table100-head th {
   font-family: OpenSans-Regular, serif;
   font-size: 18px;
   color: #fff;
@@ -127,7 +133,7 @@ table td.r, table th.r {
 }
 
 tbody tr:nth-child(even) {
-  background-color: #f5f5f5;
+  background-color: #f3f3f3;
 }
 
 tbody tr {
@@ -138,9 +144,19 @@ tbody tr {
   font-weight: unset;
 }
 
+tbody td {
+  height: 80px;
+}
+
+th {
+  border-left: 5px solid rgb(251, 161, 57);
+}
+
 tbody tr:hover {
-  color: #555555;
-  background-color: #f5f5f5;
+  font-weight: bold;
+  transition: all 0.1s;
+  border-left: 5px solid rgb(251, 161, 57);
+  border-right: 5px solid rgb(251, 161, 57);
 }
 
 td a {
@@ -149,40 +165,31 @@ td a {
 }
 
 .avatar {
-  width: 200px;
-  height: 200px;
-  border-radius: 100px;
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
+  position: relative;
+  top: 5px;
 }
 
-.student-card {
-  margin: auto;
-  width: 300px;
-  text-align: center;
-  padding: 50px;
-  box-shadow: #cdcdd9 0px 0px 20px;
-  border-radius: 5px;
-}
-
-.p1-repo-link {
-  display: block;
-  text-decoration: none;
-  margin-top: 70px;
-  font-size: 50px;
+.avatar:hover {
+  transition: all 0.3s;
+  transform: scale(1.1);
 }
 
 .col-sort-buttons-container {
   float: right;
 }
 
-.col-sort-buttons-container .sort-button{
+.col-sort-buttons-container .sort-button {
   margin-right: 10px;
   opacity: 0.5;
 }
 
-.col-sort-buttons-container .sort-button:hover{
+.col-sort-buttons-container .sort-button:hover {
   cursor: pointer;
 }
 
-.col-sort-buttons-container .sort-button.active{
+.col-sort-buttons-container .sort-button.active {
   opacity: 1;
 }
